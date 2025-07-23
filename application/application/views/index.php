@@ -1,25 +1,13 @@
 <?php include('header.php'); ?>
-<div class="home1" style="padding-top: 112px;">
+<div class="home1">
    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-ride="carousel" data-bs-interval="2000">
-      <div class="carousel-inner">
-         <?php
-            $this->db->order_by('id desc');
-            $slider = $this->crud->selectDataByMultipleWhere('slider',array('status'=>1,));
-            foreach($slider as $key => $data)
-               { ?>
-         <div class="carousel-item <?php if($key==0) echo 'active'; ?>">
-            <img class="d-block w-100" src="<?=base_url() ?>media/uploads/slider/<?=$data->image ?>" alt="<?=$data->image ?>">
-         </div>
-         <?php } ?>
+      <!-- Show video section full width -->
+      <div class="video-section" style="width:100%;margin:0;padding:0;">
+         <video width="100%" height="400" controls autoplay loop muted style="display:block;object-fit:cover;">
+            <source src="media/uploads/site_setting/NewVideo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+         </video>
       </div>
-      <!-- <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-      </a> -->
    </div>
 </div>
 <style>
