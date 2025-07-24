@@ -62,7 +62,7 @@ $sitesetting = $this->crud->fetchdatabyid('1','site_setting');
                      </div>
 
                      <div class="copyright">
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <?=website_name ?>. <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://www.codediffusion.in/" target="_blank">Code Diffusion</a>
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <?=website_name ?>. <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://www.eminentmultiservices.com/" target="_blank">Eminent + Coalesceflow Team</a>
                      </div>
 
                   </div>
@@ -780,11 +780,6 @@ if(!empty($cartpro))
             });
         }
 
-
-
-
-
-
 $(".cart_mm").hover(
   function () {
     $('body').addClass("show-sidebar-cart");
@@ -800,24 +795,6 @@ $(".cart_mm").hover(
 
 
  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
    </body>
 </html>

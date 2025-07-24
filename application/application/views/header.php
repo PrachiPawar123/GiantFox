@@ -139,20 +139,20 @@ $search = $this->input->get('search');
 }
 /* Header Layout */
 .header-section {
-   width: 100%;
-   padding: 0;
-   box-sizing: border-box;
    background: linear-gradient(90deg, #ff8a00 0%, #e52e71 50%, #7f00ff 100%);
    position: relative;
    overflow: hidden;
 }
 .header-section::before {
    content: "";
-   position: relative;
+   position: absolute;
    top: 0; left: 0; right: 0; bottom: 0;
-   background: rgba(0,0,0,0.25); /* or use a blur: */
-   /* backdrop-filter: blur(2px); */
+   background: rgba(30,30,30,0.25); /* subtle dark overlay for contrast */
    z-index: 1;
+}
+.header-flex, .header-left, .header-center, .header-right {
+   position: relative;
+   z-index: 2;
 }
 .header-bg-shapes {
    position: absolute;
@@ -177,7 +177,7 @@ $search = $this->input->get('search');
 .header-flex {
    display: inline-flex;
    width: 100%;
-   padding:5px 0;
+   padding:2px 0;
    align-items: center;
    justify-content: space-between;
    position: relative;
@@ -196,11 +196,16 @@ $search = $this->input->get('search');
 .header-center {
    width: 20%;
    justify-content: center;
+   background: rgba(255 ,255, 255,0.87); /* Milky white with slight transparency */
+   border-radius: 15px;
+   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+   padding: 1px 0;
+   display: flex;
+   align-items: center;
 }
 .header-right {
    justify-content: flex-start;
    gap: 25px;
-   
 }
 .header-right .header-right-menu {
    width: 65%;
@@ -504,7 +509,7 @@ $search = $this->input->get('search');
    </div>
    <div class="header-flex">
       <!-- Left Section: First three menu links -->
-      <nav class="header-left">
+       <div class="header-left">
          <a href="<?=base_url('new-drop') ?>" class="header-link<?= ($this->uri->segment(1) == 'new-drop') ? ' active' : '' ?>">NEW DROPS</a>
          <?php
             $this->db->order_by('sort asc');
@@ -515,7 +520,7 @@ $search = $this->input->get('search');
          ?>
          <a href="<?=base_url('filter/'.$cat->slug) ?>" class="header-link<?=$isActive?>"><?=$cat->name ?></a>
          <?php } ?>
-      </nav>
+      </div>
       <!-- Center Section: Logo -->
       <div class="header-center">
          <a href="<?=base_url() ?>" class="logo">
