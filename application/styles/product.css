@@ -713,7 +713,7 @@ section
 
 .product
 {
-	padding-top: 70px;
+	/* padding-top: 70px; */
 /*	padding-top: 94px;*/
 	padding-bottom: 98px;
 	background: #FFFFFF;
@@ -890,7 +890,7 @@ section
 }
 .product_quantity_container
 {
-	margin-top: 43px;
+	/* margin-top: 43px; */
 }
 .product_quantity_container span
 {
@@ -909,7 +909,7 @@ section
 	overflow: hidden;
 	padding-left: 11px;
 	vertical-align: middle;
-	margin-left: 14px;
+	/* margin-left: 14px; */
 }
 .product_quantity input
 {
@@ -1035,7 +1035,8 @@ section
 }
 .cart_button
 {
-	margin-top: 55px;
+	/* margin-top: 55px; */
+	width: 100%;
 }
 
 /*********************************
@@ -1394,14 +1395,15 @@ section
 {
 	color: #937c6f;
 }
-.footer_social
+.footer_social ul
 {
-	margin-top: 51px;
+	/* margin-top: 51px; */
+	display: flex;
 }
 .footer_social ul li
 {
 	display: inline-block;
-	margin-right: 36px;
+	/* margin-right: 36px; */
 }
 .footer_social ul li:last-child
 {

@@ -986,7 +986,7 @@ margin-bottom: 50px;
 .rating_5 i:nth-child(5){color: #f5c06f;}
 .product_content
 {
-	margin-top: 7px;
+	margin-top: 12px;
 }
 .product_info
 {
@@ -1504,12 +1504,12 @@ margin-bottom: 50px;
 }
 .footer_social
 {
-	margin-top: 51px;
+	/* margin-top: 51px; */
 }
 .footer_social ul li
 {
 	display: inline-block;
-	margin-right: 36px;
+	margin-right: 1.4rem;
 }
 .footer_social ul li:last-child
 {

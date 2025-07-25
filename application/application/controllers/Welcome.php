@@ -419,112 +419,6 @@ class Welcome extends CI_Controller {
 
     /*---get stock details--*/
 
-    function get_stock()
-    {
-        $result = array();        
-      
-        $p_id = $this->input->post("p_id");
-        $size_id = $this->input->post("size_id");
-        $color_id = $this->input->post("color_id");
-        $rowd = array();
-
-
-        $this->db->group_by('size_id');
-		$size = $this->crud->selectDataByMultipleWhere('all_images',array('p_id'=>$p_id,"color_id"=>$color_id,));
-		
-		$size_html = '';
-		foreach ($size as $key => $value) {
-			$checked = '';
-				if($key==0 && empty($size_id))
-				{
-					$checked = 'checked';
-					$size_id = $value->size_id;
-				}
-				else if($size_id==$value->size_id )
-				{
-					$checked = 'checked';
-				}
-			$size_name = $this->crud->selectDataByMultipleWhere('size',array('id'=>$value->size_id));
-			$size_html .= '<li>
-                            <input type="radio" id="radio_'.$size_name[0]->id.'" name="product_radio" class="regular_radio sizeradiobtn radio_'.$size_name[0]->id.'" '.$checked.' value="'.$size_name[0]->id.'">
-                            <label id="line-trou<'.$size_name[0]->id.'" for="radio_'.$size_name[0]->id.'">'.$size_name[0]->name.'</label>
-                         </li>';
-		}
-
-
-
-
-
-        if(!empty($p_id) && !empty($size_id) && !empty($color_id))
-        {
-            $where = array(
-                    "p_id"=>$p_id,
-                    "size_id"=>$size_id,
-                    "color_id"=>$color_id,
-                );
-            $this->db->group_by('image');
-            $rowd = $this->db->get_where("all_images",$where)->result_object();
-        }
-        
-       
-        $desktop_image_html = '';
-        $mobile_image_html = '';
-        $image = '';
-        $stock = '';
-        $i=0;
-		foreach($rowd as $key => $row)
-        {
-        	$i++;
-        	$image = base_url('media/uploads/product/'.$row->image);
-
-        	$padd_left = '';
-        	if($key==0 || $key==2 || $key==4 || $key==6)
-        	{
-        		$padd_left = 'text-align:center;';
-        	}
-        	else
-        	{
-        		$padd_left = '';
-        	}
-
-        	
-
-        	$desktop_image_html .=  '<div class="col-lg-6 mt-3" style="padding-right: 5px !important;padding-left: 5px !important;'.$padd_left.'">
-                           <img src="'.$image.'" class="img-fluid" alt>
-                        </div>';
-        	$mobile_image_html .= '<div class="item">
-                                <img class="d-block w-100" src="'.$image.'" alt="First slide" style="margin-bottom:11px;">
-                            </div>';
-			$stock = $row->stock;
-
-		}       
-
-		
-
-        if(!empty($desktop_image_html))
-        {
-            $result['message'] = "data fetch successfully";
-            $result['status']  = "200";
-            $result['data']    = $stock;
-            $result['desktop_image_html']    = $desktop_image_html;
-            $result['mobile_image_html']    = $mobile_image_html;
-            $result['size_html']    = $size_html;
-           
-        }
-
-        else
-            {
-                $result['message'] = "data not fetch";
-                $result['status']  = "400";
-                $result['data']    = '';
-                $result['desktop_image_html'] = [];
-            	$result['mobile_image_html'] = [];
-            	$result['size_html'] = [];
-            }
-
-        echo json_encode($result);
-    }
-
     // function get_stock()
     // {
     //     $result = array();        
@@ -533,6 +427,34 @@ class Welcome extends CI_Controller {
     //     $size_id = $this->input->post("size_id");
     //     $color_id = $this->input->post("color_id");
     //     $rowd = array();
+
+
+    //     $this->db->group_by('size_id');
+	// 	$size = $this->crud->selectDataByMultipleWhere('all_images',array('p_id'=>$p_id,"color_id"=>$color_id,));
+		
+	// 	$size_html = '';
+	// 	foreach ($size as $key => $value) {
+	// 		$checked = '';
+	// 			if($key==0 && empty($size_id))
+	// 			{
+	// 				$checked = 'checked';
+	// 				$size_id = $value->size_id;
+	// 			}
+	// 			else if($size_id==$value->size_id )
+	// 			{
+	// 				$checked = 'checked';
+	// 			}
+	// 		$size_name = $this->crud->selectDataByMultipleWhere('size',array('id'=>$value->size_id));
+	// 		$size_html .= '<li>
+    //                         <input type="radio" id="radio_'.$size_name[0]->id.'" name="product_radio" class="regular_radio sizeradiobtn radio_'.$size_name[0]->id.'" '.$checked.' value="'.$size_name[0]->id.'">
+    //                         <label id="line-trou<'.$size_name[0]->id.'" for="radio_'.$size_name[0]->id.'">'.$size_name[0]->name.'</label>
+    //                      </li>';
+	// 	}
+
+
+
+
+
     //     if(!empty($p_id) && !empty($size_id) && !empty($color_id))
     //     {
     //         $where = array(
@@ -540,13 +462,10 @@ class Welcome extends CI_Controller {
     //                 "size_id"=>$size_id,
     //                 "color_id"=>$color_id,
     //             );
+    //         $this->db->group_by('image');
     //         $rowd = $this->db->get_where("all_images",$where)->result_object();
     //     }
-
-    //     $sizename = '';
-	// 	$size = $this->crud->selectDataByMultipleWhere('size',array('id'=>$size_id));
-	// 	if(!empty($size))
-	// 		$sizename = $size[0]->name;
+        
        
     //     $desktop_image_html = '';
     //     $mobile_image_html = '';
@@ -558,17 +477,29 @@ class Welcome extends CI_Controller {
     //     	$i++;
     //     	$image = base_url('media/uploads/product/'.$row->image);
 
-    //     	$desktop_image_html .=  '<div class="col-lg-6 mt-3">
+    //     	$padd_left = '';
+    //     	if($key==0 || $key==2 || $key==4 || $key==6)
+    //     	{
+    //     		$padd_left = 'text-align:center;';
+    //     	}
+    //     	else
+    //     	{
+    //     		$padd_left = '';
+    //     	}
+
+        	
+
+    //     	$desktop_image_html .=  '<div class="col-lg-6 mt-3" style="padding-right: 5px !important;padding-left: 5px !important;'.$padd_left.'">
     //                        <img src="'.$image.'" class="img-fluid" alt>
     //                     </div>';
     //     	$mobile_image_html .= '<div class="item">
-    //                             <img class="d-block w-100" src="'.$image.'" alt="First slide" style="margin-bottom: 11px;">
+    //                             <img class="d-block w-100" src="'.$image.'" alt="First slide" style="margin-bottom:11px;">
     //                         </div>';
 	// 		$stock = $row->stock;
 
 	// 	}       
 
-
+		
 
     //     if(!empty($desktop_image_html))
     //     {
@@ -577,7 +508,7 @@ class Welcome extends CI_Controller {
     //         $result['data']    = $stock;
     //         $result['desktop_image_html']    = $desktop_image_html;
     //         $result['mobile_image_html']    = $mobile_image_html;
-    //         $result['sizename']    = $sizename;
+    //         $result['size_html']    = $size_html;
            
     //     }
 
@@ -585,14 +516,83 @@ class Welcome extends CI_Controller {
     //         {
     //             $result['message'] = "data not fetch";
     //             $result['status']  = "400";
-    //             $result['data']    = [];
+    //             $result['data']    = '';
     //             $result['desktop_image_html'] = [];
     //         	$result['mobile_image_html'] = [];
-    //         	$result['sizename'] = [];
+    //         	$result['size_html'] = [];
     //         }
 
     //     echo json_encode($result);
     // }
+
+    function get_stock()
+    {
+        $result = array();        
+      
+        $p_id = $this->input->post("p_id");
+        $size_id = $this->input->post("size_id");
+        $color_id = $this->input->post("color_id");
+        $rowd = array();
+        if(!empty($p_id) && !empty($size_id) && !empty($color_id))
+        {
+            $where = array(
+                    "p_id"=>$p_id,
+                    "size_id"=>$size_id,
+                    "color_id"=>$color_id,
+                );
+            $rowd = $this->db->get_where("all_images",$where)->result_object();
+        }
+
+        $sizename = '';
+		$size = $this->crud->selectDataByMultipleWhere('size',array('id'=>$size_id));
+		if(!empty($size))
+			$sizename = $size[0]->name;
+       
+        $desktop_image_html = '';
+        $mobile_image_html = '';
+        $image = '';
+        $stock = '';
+        $i=0;
+		foreach($rowd as $key => $row)
+        {
+        	$i++;
+        	$image = base_url('media/uploads/product/'.$row->image);
+
+        	$desktop_image_html .=  '<div class="col-lg-6 mt-3">
+                           <img src="'.$image.'" class="img-fluid" alt>
+                        </div>';
+        	$mobile_image_html .= '<div class="item">
+                                <img class="d-block w-100" src="'.$image.'" alt="First slide" style="margin-bottom: 11px;">
+                            </div>';
+			$stock = $row->stock;
+
+		}       
+
+
+
+        if(!empty($desktop_image_html))
+        {
+            $result['message'] = "data fetch successfully";
+            $result['status']  = "200";
+            $result['data']    = $stock;
+            $result['desktop_image_html']    = $desktop_image_html;
+            $result['mobile_image_html']    = $mobile_image_html;
+            $result['sizename']    = $sizename;
+           
+        }
+
+        else
+            {
+                $result['message'] = "data not fetch";
+                $result['status']  = "400";
+                $result['data']    = [];
+                $result['desktop_image_html'] = [];
+            	$result['mobile_image_html'] = [];
+            	$result['sizename'] = [];
+            }
+
+        echo json_encode($result);
+    }
 
    
 
